@@ -1,136 +1,169 @@
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = themeToggle.querySelector('i');
+// Theme Toggle Functionality
+const themeToggle = document.getElementById('themeToggle');
+const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+const themeIcon = themeToggle.querySelector('i');
+const mobileThemeIcon = mobileThemeToggle.querySelector('i');
 
-        // Check for saved theme or default to light
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
+// Check for saved theme or default to light
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
 
-        if (savedTheme === 'dark') {
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
+// Set initial icons based on saved theme
+updateThemeIcons(savedTheme);
+
+// Function to update theme icons
+function updateThemeIcons(theme) {
+    if (theme === 'dark') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+        mobileThemeIcon.classList.remove('fa-moon');
+        mobileThemeIcon.classList.add('fa-sun');
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+        mobileThemeIcon.classList.remove('fa-sun');
+        mobileThemeIcon.classList.add('fa-moon');
+    }
+}
+
+// Function to toggle theme
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcons(newTheme);
+    
+    // Add click animation to both buttons
+    themeToggle.style.transform = 'scale(0.9)';
+    mobileThemeToggle.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        themeToggle.style.transform = '';
+        mobileThemeToggle.style.transform = '';
+    }, 200);
+}
+
+// Add click events to both theme toggle buttons
+themeToggle.addEventListener('click', toggleTheme);
+mobileThemeToggle.addEventListener('click', toggleTheme);
+
+// Mobile Menu Toggle
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+const menuIcon = mobileMenuBtn.querySelector('i');
+
+mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    menuIcon.classList.toggle('fa-bars');
+    menuIcon.classList.toggle('fa-times');
+    
+    // Hide mobile theme toggle when mobile menu is open
+    if (window.innerWidth <= 768) {
+        mobileThemeToggle.style.opacity = navLinks.classList.contains('active') ? '0' : '1';
+        mobileThemeToggle.style.pointerEvents = navLinks.classList.contains('active') ? 'none' : 'all';
+    }
+});
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+        
+        // Show mobile theme toggle again
+        if (window.innerWidth <= 768) {
+            mobileThemeToggle.style.opacity = '1';
+            mobileThemeToggle.style.pointerEvents = 'all';
         }
 
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        // Update active class
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+    });
+});
 
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+// Project Count Display
+const projectCountElement = document.getElementById('projectCount');
+const projectCards = document.querySelectorAll('.project-card');
 
-            if (newTheme === 'dark') {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
+// Update project count dynamically
+function updateProjectCount() {
+    const visibleProjects = document.querySelectorAll('.project-card[style*="display: flex"], .project-card:not([style])');
+    const totalProjects = projectCards.length;
+
+    // Show count with "+" if less than total (for filtered view)
+    if (visibleProjects.length === totalProjects) {
+        projectCountElement.textContent = `${totalProjects}+`;
+    } else {
+        projectCountElement.textContent = `${visibleProjects.length}/${totalProjects}`;
+    }
+}
+
+// Project Filtering
+const filterButtons = document.querySelectorAll('.filter-btn');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        button.classList.add('active');
+
+        const filterValue = button.getAttribute('data-filter');
+
+        projectCards.forEach(card => {
+            if (filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
+                card.style.display = 'flex';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, 10);
             } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px) scale(0.9)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 400);
             }
         });
 
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        const menuIcon = mobileMenuBtn.querySelector('i');
+        // Update project count after filtering
+        setTimeout(updateProjectCount, 450);
+    });
+});
 
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            menuIcon.classList.toggle('fa-bars');
-            menuIcon.classList.toggle('fa-times');
-        });
+// Animate skill bars on scroll
+const skillBars = document.querySelectorAll('.skill-progress');
 
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                menuIcon.classList.add('fa-bars');
-                menuIcon.classList.remove('fa-times');
+const animateSkillBars = () => {
+    skillBars.forEach(bar => {
+        const barPosition = bar.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.3;
 
-                // Update active class
-                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-                link.classList.add('active');
-            });
-        });
-
-        // Project Count Display
-        const projectCountElement = document.getElementById('projectCount');
-        const projectCards = document.querySelectorAll('.project-card');
-
-        // Update project count dynamically
-        function updateProjectCount() {
-            const visibleProjects = document.querySelectorAll('.project-card[style*="display: flex"], .project-card:not([style])');
-            const totalProjects = projectCards.length;
-
-            // Show count with "+" if less than total (for filtered view)
-            if (visibleProjects.length === totalProjects) {
-                projectCountElement.textContent = `${totalProjects}+`;
-            } else {
-                projectCountElement.textContent = `${visibleProjects.length}/${totalProjects}`;
-            }
+        if (barPosition < screenPosition) {
+            const width = bar.getAttribute('data-width');
+            bar.style.width = width + '%';
         }
+    });
+};
 
-        // Project Filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
+// Initialize skill bars to 0
+skillBars.forEach(bar => {
+    bar.style.width = '0%';
+});
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                button.classList.add('active');
+window.addEventListener('scroll', animateSkillBars);
 
-                const filterValue = button.getAttribute('data-filter');
+// CV Download Functionality
+const downloadCV = document.getElementById('downloadCV');
 
-                projectCards.forEach(card => {
-                    if (filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
-                        card.style.display = 'flex';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0) scale(1)';
-                        }, 10);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px) scale(0.9)';
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 400);
-                    }
-                });
+downloadCV.addEventListener('click', (e) => {
+    e.preventDefault();
 
-                // Update project count after filtering
-                setTimeout(updateProjectCount, 450);
-            });
-        });
-
-        // Animate skill bars on scroll
-        const skillBars = document.querySelectorAll('.skill-progress');
-
-        const animateSkillBars = () => {
-            skillBars.forEach(bar => {
-                const barPosition = bar.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-
-                if (barPosition < screenPosition) {
-                    const width = bar.getAttribute('data-width');
-                    bar.style.width = width + '%';
-                }
-            });
-        };
-
-        // Initialize skill bars to 0
-        skillBars.forEach(bar => {
-            bar.style.width = '0%';
-        });
-
-        window.addEventListener('scroll', animateSkillBars);
-
-        // CV Download Functionality
-        const downloadCV = document.getElementById('downloadCV');
-
-        downloadCV.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            // CV content based on your provided document
-            const cvContent = `
+    // CV content based on your provided document
+    const cvContent = `
 AHMED ALI OSMAN
 
 Email: ahmeyali2236@gmail.com
@@ -203,113 +236,130 @@ Available upon request.
 3. Mr. Abdiwahid Salat -- Biology Teacher, Bute Boys Secondary School | Phone: 0724 499 686
             `;
 
-            // Create a Blob with the CV content
-            const blob = new Blob([cvContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
+    // Create a Blob with the CV content
+    const blob = new Blob([cvContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
 
-            // Create a temporary link element to trigger download
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'Ahmed_Ali_Osman_CV.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+    // Create a temporary link element to trigger download
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Ahmed_Ali_Osman_CV.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-            // Show a success message
-            const originalText = downloadCV.innerHTML;
-            downloadCV.innerHTML = '<i class="fas fa-check"></i> CV Downloaded Successfully!';
-            downloadCV.style.background = '#10b981';
+    // Show a success message
+    const originalText = downloadCV.innerHTML;
+    downloadCV.innerHTML = '<i class="fas fa-check"></i> CV Downloaded Successfully!';
+    downloadCV.style.background = '#10b981';
 
-            setTimeout(() => {
-                downloadCV.innerHTML = originalText;
-                downloadCV.style.background = '';
-            }, 3000);
-        });
+    setTimeout(() => {
+        downloadCV.innerHTML = originalText;
+        downloadCV.style.background = '';
+    }, 3000);
+});
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.padding = '10px 0';
-                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.15)';
-            } else {
-                header.style.padding = '15px 0';
-                header.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.08)';
-            }
+// Header scroll effect
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+        header.style.padding = '10px 0';
+        header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.15)';
+    } else {
+        header.style.padding = '15px 0';
+        header.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.08)';
+    }
 
-            // Update active nav link based on scroll position
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-links a');
+    // Update active nav link based on scroll position
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
-            let current = '';
+    let current = '';
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 150;
-                const sectionHeight = section.clientHeight;
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 150;
+        const sectionHeight = section.clientHeight;
 
-                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 100,
+                behavior: 'smooth'
             });
+        }
+    });
+});
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
+// Initialize animations and project count
+window.addEventListener('load', () => {
+    // Add initial animation to hero elements
+    const heroElements = document.querySelectorAll('.hero-text h1, .hero-text h2, .hero-text p, .hero-buttons, .image-wrapper');
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+    heroElements.forEach((element, index) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
 
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+        setTimeout(() => {
+            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }, index * 200);
+    });
 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+    // Animate skill bars on load
+    animateSkillBars();
 
-        // Initialize animations and project count
-        window.addEventListener('load', () => {
-            // Add initial animation to hero elements
-            const heroElements = document.querySelectorAll('.hero-text h1, .hero-text h2, .hero-text p, .hero-buttons, .image-wrapper');
+    // Initialize project count
+    updateProjectCount();
 
-            heroElements.forEach((element, index) => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(30px)';
+    // Animate stats on load
+    const stats = document.querySelectorAll('.stat-item');
+    stats.forEach((stat, index) => {
+        stat.style.opacity = '0';
+        stat.style.transform = 'translateY(30px)';
 
-                setTimeout(() => {
-                    element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }, index * 200);
-            });
+        setTimeout(() => {
+            stat.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            stat.style.opacity = '1';
+            stat.style.transform = 'translateY(0)';
+        }, 300 + (index * 150));
+    });
+});
 
-            // Animate skill bars on load
-            animateSkillBars();
+// Handle window resize to update theme toggle visibility
+window.addEventListener('resize', () => {
+    // Show/hide mobile theme toggle based on screen size
+    if (window.innerWidth <= 768) {
+        mobileThemeToggle.style.display = 'flex';
+    } else {
+        mobileThemeToggle.style.display = 'none';
+    }
+});
 
-            // Initialize project count
-            updateProjectCount();
-
-            // Animate stats on load
-            const stats = document.querySelectorAll('.stat-item');
-            stats.forEach((stat, index) => {
-                stat.style.opacity = '0';
-                stat.style.transform = 'translateY(30px)';
-
-                setTimeout(() => {
-                    stat.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                    stat.style.opacity = '1';
-                    stat.style.transform = 'translateY(0)';
-                }, 300 + (index * 150));
-            });
-        });
+// Initialize mobile theme toggle visibility on load
+if (window.innerWidth <= 768) {
+    mobileThemeToggle.style.display = 'flex';
+} else {
+    mobileThemeToggle.style.display = 'none';
+}
