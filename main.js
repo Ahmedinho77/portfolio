@@ -156,27 +156,41 @@ skillBars.forEach(bar => {
 
 window.addEventListener('scroll', animateSkillBars);
 
-// CV Download Functionality
+// CV Download Functionality - UPDATED with App Development skills
 const downloadCV = document.getElementById('downloadCV');
 
 downloadCV.addEventListener('click', (e) => {
     e.preventDefault();
 
-    // CV content based on your provided document
+    // CV content based on your provided document - UPDATED with App Development
     const cvContent = `
-AHMED ALI OSMAN
+AHMED ALI OSMAN - CV (Updated with App Development)
 
+====================================================================
+PERSONAL INFORMATION
+====================================================================
+
+Full Name: Ahmed Ali Osman
 Email: ahmeyali2236@gmail.com
 Phone: +254 721 237 883
 Location: Bute, Wajir, Kenya
 
+====================================================================
 CAREER ASPIRATION
-Aspiring Full-Stack Developer and Software Engineer transitioning from front-end expertise. Currently expanding skills in backend development, databases, and software architecture with the goal of becoming a complete software engineer capable of building end-to-end solutions.
+====================================================================
 
+Aspiring Full-Stack Developer and Software Engineer with expertise in front-end and mobile app development. Currently expanding skills in backend development, databases, and software architecture with the goal of becoming a complete software engineer capable of building end-to-end solutions for web and mobile platforms.
+
+====================================================================
 PROFESSIONAL PROFILE
-A highly motivated and detail-oriented third-year university student with a strong foundation in front-end web development and graphic design. Currently expanding technical expertise towards full-stack development with focus on backend technologies and software engineering principles. Combines technical skills in C, C++, HTML, CSS, and JavaScript with a creative eye for visual design using Canva. Proven ability to quickly learn new technologies, solve problems logically, and collaborate effectively in team settings. Actively seeking opportunities to contribute to full-stack projects and grow into a complete software engineering role.
+====================================================================
 
+A highly motivated and detail-oriented third-year university student with a strong foundation in front-end web development, mobile app development, and graphic design. Currently expanding technical expertise towards full-stack development with focus on backend technologies and software engineering principles. Combines technical skills in C, C++, HTML, CSS, JavaScript, and React Native with a creative eye for visual design using Canva. Successfully developed and published the "Reunite" family connection mobile application. Proven ability to quickly learn new technologies, solve problems logically, and collaborate effectively in team settings. Actively seeking opportunities to contribute to full-stack and mobile app projects and grow into a complete software engineering role.
+
+====================================================================
 EDUCATION
+====================================================================
+
 Umma University - Kenya
 Bachelor's Degree in Information Technology (Ongoing)
 Year: 2024 -- Present | Currently in Year 3, Semester 1
@@ -190,50 +204,167 @@ Iftin Junior Academy
 Kenya Certificate of Primary Education (KCPE) -- 305 Marks
 Year: 2011 -- 2019
 
+====================================================================
 TECHNICAL SKILLS
-• Programming Languages: C, C++ (Strong understanding of core programming concepts, data structures, and object-oriented principles).
-• Web Development: HTML5, CSS3, JavaScript (Building responsive and interactive web page structures and styling).
-• Database Management: MySQL (Database design, queries, and management).
-• Design & Prototyping: Canva (Proficient in creating graphics, logos, and visual content).
-• Office Tools: Microsoft Excel (85%), Microsoft Word (90%), Microsoft PowerPoint (85%)
-• Software & Tools: Git & GitHub (Version Control Basics), VS Code.
-• Currently Learning: Node.js, Python, React.js, Software Architecture
-• Soft Skills: Problem Solving (90%), Mathematics (85%), Communication (85%), Creative Thinking (88%), Logical Reasoning (87%)
+====================================================================
 
+Programming Languages:
+• C / C++ (Strong understanding of core programming concepts, data structures, and object-oriented principles)
+• JavaScript (Advanced)
+• HTML5 / CSS3 (Expert)
+
+Web Development:
+• Front-end Development (HTML5, CSS3, JavaScript)
+• Responsive Web Design
+• UI/UX Principles
+
+Mobile App Development:
+• React Native (Cross-platform mobile development)
+• Firebase Integration (Authentication, Realtime Database, Cloud Storage)
+• Mobile UI/UX Design
+• App Testing and Debugging
+• App Publishing and Distribution
+• Reunite Family Connection App (Portfolio Project)
+
+Database Management:
+• MySQL (Database design, queries, and management)
+• Firebase Realtime Database
+• Firebase Firestore
+
+Design & Prototyping:
+• Canva (Proficient in creating graphics, logos, and visual content)
+• Mobile App UI Design
+• Graphic Design Principles
+
+Office Tools:
+• Microsoft Excel
+• Microsoft Word 
+• Microsoft PowerPoint
+
+Software & Tools:
+• Git & GitHub (Version Control)
+• VS Code
+• React Native Tools
+• Firebase Console
+• Android Studio Basics
+
+Currently Learning:
+• Node.js & Backend Development
+• Python Programming
+• React.js Framework
+• Advanced React Native
+• Software Architecture
+
+Soft Skills:
+• Problem Solving 
+• Mathematics
+• Communication 
+• Creative Thinking 
+• Logical Reasoning
+• Team Collaboration
+• Adaptability & Continuous Learning
+
+====================================================================
 AREAS OF EXPERTISE
+====================================================================
+
 • Front-End Web Development & UI Design
+• Mobile App Development (React Native)
+• Cross-Platform Application Development
+• Firebase Backend Integration
 • Graphic Design & Visual Communication
-• Database Management with MySQL
+• Database Management with MySQL & Firebase
 • Microsoft Office Suite Proficiency
 • Problem Solving & Algorithmic Thinking
 • Cross-functional Team Collaboration
 • Adaptability & Continuous Learning
 • Full-Stack Development (In Progress)
 
-CAREER GOALS
-1. Short-term: Secure a front-end development role while expanding backend skills
-2. Medium-term: Transition to full-stack developer position
-3. Long-term: Become a complete software engineer capable of designing, building, and deploying scalable applications
+====================================================================
+FEATURED PROJECTS
+====================================================================
 
+1. Reunite - Family Connection App (2024)
+   • Developed a cross-platform mobile application using React Native
+   • Implemented real-time messaging, location sharing, and family tree management
+   • Integrated Firebase for authentication, database, and cloud storage
+   • Published on GitHub with releases available for download
+   • Technologies: React Native, Firebase, JavaScript
+   • Link: https://github.com/Ahmedinho77/Reunite
+
+2. Interactive Portfolio Website (2024)
+   • Created a modern, responsive portfolio with dark/light mode
+   • Implemented smooth animations and CV download functionality
+   • Technologies: HTML5, CSS3, JavaScript
+
+3. Bute5star Business Website (2024)
+   • Designed and developed a business website with services showcase
+   • Implemented responsive design principles
+   • Technologies: HTML5, CSS3, JavaScript
+
+4. StudyMate Learning Platform (2023)
+   • Built an educational platform for study organization
+   • Features include progress tracking and resource management
+   • Technologies: HTML5, CSS3, JavaScript
+
+5. Al-huda Primary School Website (2023)
+   • Developed comprehensive school website with information system
+   • Designed education-focused aesthetic
+   • Technologies: HTML5, CSS3, JavaScript
+
+====================================================================
+CAREER GOALS
+====================================================================
+
+1. Short-term: Secure a front-end or mobile app development role while expanding backend skills
+2. Medium-term: Transition to full-stack developer position with mobile expertise
+3. Long-term: Become a complete software engineer capable of designing, building, and deploying scalable applications across all platforms
+
+====================================================================
 LANGUAGES
+====================================================================
+
 • English (Fluent -- Written & Spoken)
 • Kiswahili (Fluent -- Written & Spoken)
 • Somali (Native)
 
+====================================================================
 PERSONAL ATTRIBUTES
+====================================================================
+
 • Initiative & Reliability: A self-starter who takes ownership of tasks and delivers on commitments with minimal supervision.
 • Fast Learner: Enthusiastic about new technologies and frameworks, with a proven ability to grasp concepts quickly.
 • Creative Problem-Solver: Approaches challenges with a positive attitude and a logical, solution-oriented mindset.
 • Effective Communicator: Strong interpersonal skills, capable of explaining technical concepts clearly in team settings.
+• Mobile-First Mindset: Passionate about creating intuitive mobile experiences that solve real-world problems.
 
+====================================================================
 CAREER OBJECTIVE
-To secure an internship or entry-level position in software development, front-end engineering, or graphic design. Eager to apply my technical and creative skills to real-world projects, gain invaluable practical experience, and grow into a proficient professional while making a tangible contribution to a forward-thinking organization.
+====================================================================
 
+To secure an internship or entry-level position in software development, mobile app development, front-end engineering, or graphic design. Eager to apply my technical and creative skills to real-world projects, gain invaluable practical experience, and grow into a proficient professional while making a tangible contribution to a forward-thinking organization.
+
+====================================================================
 REFEREES
+====================================================================
+
 Available upon request.
-1. Mr. Abdirizaq Abdidkadir -- Mathematics Teacher, Bute Boys Secondary School | Phone: 0726 325 200
-2. Mr. Hassan Billow -- Chemistry Teacher, Bute Boys Secondary School | Phone: 0723 821 185
-3. Mr. Abdiwahid Salat -- Biology Teacher, Bute Boys Secondary School | Phone: 0724 499 686
+
+1. Mr. Abdirizaq Abdidkadir
+   Mathematics Teacher, Bute Boys Secondary School
+   Phone: 0726 325 200
+
+2. Mr. Hassan Billow
+   Chemistry Teacher, Bute Boys Secondary School
+   Phone: 0723 821 185
+
+3. Mr. Abdiwahid Salat
+   Biology Teacher, Bute Boys Secondary School
+   Phone: 0724 499 686
+
+====================================================================
+Last Updated: 2026
+====================================================================
             `;
 
     // Create a Blob with the CV content
@@ -243,7 +374,7 @@ Available upon request.
     // Create a temporary link element to trigger download
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Ahmed_Ali_Osman_CV.txt';
+    link.download = 'Ahmed_Ali_Osman_CV_2024.txt';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
