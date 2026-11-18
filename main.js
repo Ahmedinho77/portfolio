@@ -4,14 +4,10 @@ const mobileThemeToggle = document.getElementById('mobileThemeToggle');
 const themeIcon = themeToggle.querySelector('i');
 const mobileThemeIcon = mobileThemeToggle.querySelector('i');
 
-// Check for saved theme or default to light
 const savedTheme = localStorage.getItem('theme') || 'light';
 document.documentElement.setAttribute('data-theme', savedTheme);
-
-// Set initial icons based on saved theme
 updateThemeIcons(savedTheme);
 
-// Function to update theme icons
 function updateThemeIcons(theme) {
     if (theme === 'dark') {
         themeIcon.classList.remove('fa-moon');
@@ -26,16 +22,14 @@ function updateThemeIcons(theme) {
     }
 }
 
-// Function to toggle theme
 function toggleTheme() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
+
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     updateThemeIcons(newTheme);
-    
-    // Add click animation to both buttons
+
     themeToggle.style.transform = 'scale(0.9)';
     mobileThemeToggle.style.transform = 'scale(0.9)';
     setTimeout(() => {
@@ -44,7 +38,6 @@ function toggleTheme() {
     }, 200);
 }
 
-// Add click events to both theme toggle buttons
 themeToggle.addEventListener('click', toggleTheme);
 mobileThemeToggle.addEventListener('click', toggleTheme);
 
@@ -57,58 +50,36 @@ mobileMenuBtn.addEventListener('click', () => {
     navLinks.classList.toggle('active');
     menuIcon.classList.toggle('fa-bars');
     menuIcon.classList.toggle('fa-times');
-    
-    // Hide mobile theme toggle when mobile menu is open
+
     if (window.innerWidth <= 768) {
         mobileThemeToggle.style.opacity = navLinks.classList.contains('active') ? '0' : '1';
         mobileThemeToggle.style.pointerEvents = navLinks.classList.contains('active') ? 'none' : 'all';
     }
 });
 
-// Close mobile menu when clicking a link
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
         menuIcon.classList.add('fa-bars');
         menuIcon.classList.remove('fa-times');
-        
-        // Show mobile theme toggle again
+
         if (window.innerWidth <= 768) {
             mobileThemeToggle.style.opacity = '1';
             mobileThemeToggle.style.pointerEvents = 'all';
         }
 
-        // Update active class
         document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
         link.classList.add('active');
     });
 });
 
-// Project Count Display
-const projectCountElement = document.getElementById('projectCount');
-const projectCards = document.querySelectorAll('.project-card');
-
-// Update project count dynamically
-function updateProjectCount() {
-    const visibleProjects = document.querySelectorAll('.project-card[style*="display: flex"], .project-card:not([style])');
-    const totalProjects = projectCards.length;
-
-    // Show count with "+" if less than total (for filtered view)
-    if (visibleProjects.length === totalProjects) {
-        projectCountElement.textContent = `${totalProjects}+`;
-    } else {
-        projectCountElement.textContent = `${visibleProjects.length}/${totalProjects}`;
-    }
-}
-
 // Project Filtering
 const filterButtons = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
 
 filterButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // Remove active class from all buttons
         filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
         button.classList.add('active');
 
         const filterValue = button.getAttribute('data-filter');
@@ -128,9 +99,6 @@ filterButtons.forEach(button => {
                 }, 400);
             }
         });
-
-        // Update project count after filtering
-        setTimeout(updateProjectCount, 450);
     });
 });
 
@@ -149,22 +117,20 @@ const animateSkillBars = () => {
     });
 };
 
-// Initialize skill bars to 0
 skillBars.forEach(bar => {
     bar.style.width = '0%';
 });
 
 window.addEventListener('scroll', animateSkillBars);
 
-// CV Download Functionality - UPDATED with App Development skills
+// CV Download Functionality — Full-Stack + Kotlin/Flutter/Supabase
 const downloadCV = document.getElementById('downloadCV');
 
 downloadCV.addEventListener('click', (e) => {
     e.preventDefault();
 
-    // CV content based on your provided document - UPDATED with App Development
     const cvContent = `
-AHMED ALI OSMAN - CV (Updated with App Development)
+AHMED ALI OSMAN - CV (Full-Stack Software Developer)
 
 ====================================================================
 PERSONAL INFORMATION
@@ -179,13 +145,13 @@ Location: Bute, Wajir, Kenya
 CAREER ASPIRATION
 ====================================================================
 
-Aspiring Full-Stack Developer and Software Engineer with expertise in front-end and mobile app development. Currently expanding skills in backend development, databases, and software architecture with the goal of becoming a complete software engineer capable of building end-to-end solutions for web and mobile platforms.
+Full-Stack Software Developer with hands-on experience building complete web applications using PHP, MySQL, JavaScript, HTML/CSS, and mobile apps across Kotlin (native Android), Flutter + Supabase, and React Native + Firebase. Currently deepening expertise in software architecture, deployment, and scalable system design.
 
 ====================================================================
 PROFESSIONAL PROFILE
 ====================================================================
 
-A highly motivated and detail-oriented third-year university student with a strong foundation in front-end web development, mobile app development, and graphic design. Currently expanding technical expertise towards full-stack development with focus on backend technologies and software engineering principles. Combines technical skills in C, C++, HTML, CSS, JavaScript, and React Native with a creative eye for visual design using Canva. Successfully developed and published the "Reunite" family connection mobile application. Proven ability to quickly learn new technologies, solve problems logically, and collaborate effectively in team settings. Actively seeking opportunities to contribute to full-stack and mobile app projects and grow into a complete software engineering role.
+A highly motivated and detail-oriented third-year university student and full-stack software developer with a strong foundation in web development, mobile app development, and management systems. Builds complete applications end-to-end — from database schema design and PHP back-end logic to responsive front-ends and published mobile apps. Combines technical skills in PHP, MySQL, Kotlin, Flutter, Supabase, C, C++, HTML, CSS, JavaScript, and React Native with a creative eye for visual design using Canva. Successfully developed and published multiple projects including the "Reunite" family connection mobile application, a CBC School Management System, and Sippora Store e-commerce platform. Proven ability to quickly learn new technologies, solve problems logically, and collaborate effectively in team settings.
 
 ====================================================================
 EDUCATION
@@ -194,7 +160,6 @@ EDUCATION
 Umma University - Kenya
 Bachelor's Degree in Information Technology (Ongoing)
 Year: 2024 -- Present | Currently in Year 3, Semester 1
-Explanation: Pursuing a degree that provides a theoretical and practical foundation in computing, which complements my self-driven learning in specific programming and design areas.
 
 Bute Boys Secondary School
 Kenya Certificate of Secondary Education (KCSE) -- Grade: B+
@@ -208,117 +173,104 @@ Year: 2011 -- 2019
 TECHNICAL SKILLS
 ====================================================================
 
-Programming Languages:
-• C / C++ (Strong understanding of core programming concepts, data structures, and object-oriented principles)
-• JavaScript (Advanced)
-• HTML5 / CSS3 (Expert)
+Backend & Database:
+• PHP (server-side logic, sessions, form handling, APIs)
+• MySQL (schema design, queries, joins, CRUD)
+• Supabase (PostgreSQL-backed open-source backend)
+• REST API development
+• Authentication & authorization
+• Firebase (Authentication, Realtime Database, Cloud Storage)
 
-Web Development:
-• Front-end Development (HTML5, CSS3, JavaScript)
+Front-End & Programming:
+• HTML5 / CSS3 (Expert)
+• JavaScript (Advanced)
+• C / C++ (core programming, data structures, OOP principles)
 • Responsive Web Design
 • UI/UX Principles
+• Git & GitHub (Version Control)
 
 Mobile App Development:
+• Kotlin (Native Android development)
+• Flutter (Cross-platform development)
+• Supabase (Flutter backend integration)
 • React Native (Cross-platform mobile development)
-• Firebase Integration (Authentication, Realtime Database, Cloud Storage)
+• Firebase Integration
+• Android Studio (build, test, publish)
 • Mobile UI/UX Design
-• App Testing and Debugging
-• App Publishing and Distribution
-• Reunite Family Connection App (Portfolio Project)
-
-Database Management:
-• MySQL (Database design, queries, and management)
-• Firebase Realtime Database
-• Firebase Firestore
+• App Testing and Publishing
 
 Design & Prototyping:
-• Canva (Proficient in creating graphics, logos, and visual content)
+• Canva (graphics, logos, visual content)
 • Mobile App UI Design
 • Graphic Design Principles
 
 Office Tools:
 • Microsoft Excel
-• Microsoft Word 
+• Microsoft Word
 • Microsoft PowerPoint
 
-Software & Tools:
-• Git & GitHub (Version Control)
-• VS Code
-• React Native Tools
-• Firebase Console
-• Android Studio Basics
-
 Currently Learning:
-• Node.js & Backend Development
-• Python Programming
-• React.js Framework
-• Advanced React Native
+• Laravel & Modern PHP Frameworks
+• Advanced Kotlin & Jetpack Compose
+• Flutter State Management (Riverpod)
+• Docker & Deployment
 • Software Architecture
 
 Soft Skills:
-• Problem Solving 
+• Problem Solving
 • Mathematics
-• Communication 
-• Creative Thinking 
+• Communication
+• Creative Thinking
 • Logical Reasoning
 • Team Collaboration
 • Adaptability & Continuous Learning
 
 ====================================================================
-AREAS OF EXPERTISE
-====================================================================
-
-• Front-End Web Development & UI Design
-• Mobile App Development (React Native)
-• Cross-Platform Application Development
-• Firebase Backend Integration
-• Graphic Design & Visual Communication
-• Database Management with MySQL & Firebase
-• Microsoft Office Suite Proficiency
-• Problem Solving & Algorithmic Thinking
-• Cross-functional Team Collaboration
-• Adaptability & Continuous Learning
-• Full-Stack Development (In Progress)
-
-====================================================================
 FEATURED PROJECTS
 ====================================================================
 
-1. Reunite - Family Connection App (2024)
-   • Developed a cross-platform mobile application using React Native
-   • Implemented real-time messaging, location sharing, and family tree management
-   • Integrated Firebase for authentication, database, and cloud storage
-   • Published on GitHub with releases available for download
+1. CBC School Management System (2024)
+   • Full-stack school management system built around Kenya's Competency-Based Curriculum (CBC)
+   • PHP & MySQL backend with role-based access (admin/teacher/parent)
+   • Features: student enrollment, competency tracking, grade management, report generation
+   • Technologies: PHP, MySQL, JavaScript
+   • Link: https://github.com/Ahmedinho77
+
+2. Sippora Store - E-Commerce Platform (2024)
+   • Full-stack e-commerce platform with PHP/MySQL backend
+   • Features: product catalog, shopping cart, secure checkout, order management, admin dashboard
+   • Technologies: PHP, MySQL, JavaScript
+   • Link: https://github.com/Ahmedinho77
+
+3. Reunite - Family Connection App (2024)
+   • Cross-platform mobile app with real-time messaging, location sharing, and family tree management
+   • Firebase authentication, database, and cloud storage
    • Technologies: React Native, Firebase, JavaScript
    • Link: https://github.com/Ahmedinho77/Reunite
 
-2. Interactive Portfolio Website (2024)
-   • Created a modern, responsive portfolio with dark/light mode
-   • Implemented smooth animations and CV download functionality
+4. Interactive Portfolio Website (2024)
+   • Modern, responsive portfolio with dark/light mode and animations
    • Technologies: HTML5, CSS3, JavaScript
 
-3. Bute5star Business Website (2024)
-   • Designed and developed a business website with services showcase
-   • Implemented responsive design principles
+5. Bute5star Business Website (2024)
+   • Business website with services showcase and responsive design
    • Technologies: HTML5, CSS3, JavaScript
 
-4. StudyMate Learning Platform (2023)
-   • Built an educational platform for study organization
-   • Features include progress tracking and resource management
+6. StudyMate Learning Platform (2023)
+   • Educational platform for study organization and progress tracking
    • Technologies: HTML5, CSS3, JavaScript
 
-5. Al-huda Primary School Website (2023)
-   • Developed comprehensive school website with information system
-   • Designed education-focused aesthetic
+7. Al-huda Primary School Website (2023)
+   • Comprehensive school website with education-focused aesthetic
    • Technologies: HTML5, CSS3, JavaScript
 
 ====================================================================
 CAREER GOALS
 ====================================================================
 
-1. Short-term: Secure a front-end or mobile app development role while expanding backend skills
-2. Medium-term: Transition to full-stack developer position with mobile expertise
-3. Long-term: Become a complete software engineer capable of designing, building, and deploying scalable applications across all platforms
+1. Short-term: Secure a full-stack developer or mobile developer role
+2. Medium-term: Deepen expertise in scalable architecture, Laravel, Kotlin/Compose, and Flutter
+3. Long-term: Become a lead software engineer designing and deploying scalable systems across platforms
 
 ====================================================================
 LANGUAGES
@@ -329,20 +281,10 @@ LANGUAGES
 • Somali (Native)
 
 ====================================================================
-PERSONAL ATTRIBUTES
-====================================================================
-
-• Initiative & Reliability: A self-starter who takes ownership of tasks and delivers on commitments with minimal supervision.
-• Fast Learner: Enthusiastic about new technologies and frameworks, with a proven ability to grasp concepts quickly.
-• Creative Problem-Solver: Approaches challenges with a positive attitude and a logical, solution-oriented mindset.
-• Effective Communicator: Strong interpersonal skills, capable of explaining technical concepts clearly in team settings.
-• Mobile-First Mindset: Passionate about creating intuitive mobile experiences that solve real-world problems.
-
-====================================================================
 CAREER OBJECTIVE
 ====================================================================
 
-To secure an internship or entry-level position in software development, mobile app development, front-end engineering, or graphic design. Eager to apply my technical and creative skills to real-world projects, gain invaluable practical experience, and grow into a proficient professional while making a tangible contribution to a forward-thinking organization.
+To secure an internship or entry-level full-stack developer position where I can apply my PHP, MySQL, JavaScript, Kotlin, Flutter, Supabase, and React Native skills to real-world projects, gain valuable practical experience, and grow into a proficient software engineer contributing to a forward-thinking organization.
 
 ====================================================================
 REFEREES
@@ -365,21 +307,17 @@ Available upon request.
 ====================================================================
 Last Updated: 2026
 ====================================================================
-            `;
+    `;
 
-    // Create a Blob with the CV content
     const blob = new Blob([cvContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-
-    // Create a temporary link element to trigger download
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'Ahmed_Ali_Osman_CV_2024.txt';
+    link.download = 'Ahmed_Ali_Osman_CV_2026.txt';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    // Show a success message
     const originalText = downloadCV.innerHTML;
     downloadCV.innerHTML = '<i class="fas fa-check"></i> CV Downloaded Successfully!';
     downloadCV.style.background = '#10b981';
@@ -390,7 +328,7 @@ Last Updated: 2026
     }, 3000);
 });
 
-// Header scroll effect
+// Header scroll effect + active nav link
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (window.scrollY > 100) {
@@ -401,7 +339,6 @@ window.addEventListener('scroll', () => {
         header.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.08)';
     }
 
-    // Update active nav link based on scroll position
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-links a');
 
@@ -442,10 +379,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Initialize animations and project count
+// Initialize animations on load
 window.addEventListener('load', () => {
-    // Add initial animation to hero elements
-    const heroElements = document.querySelectorAll('.hero-text h1, .hero-text h2, .hero-text p, .hero-buttons, .image-wrapper');
+    const heroElements = document.querySelectorAll('.hero-badge, .hero-text h1, .hero-text h2, .hero-text p, .hero-buttons, .image-wrapper');
 
     heroElements.forEach((element, index) => {
         element.style.opacity = '0';
@@ -458,13 +394,8 @@ window.addEventListener('load', () => {
         }, index * 200);
     });
 
-    // Animate skill bars on load
     animateSkillBars();
 
-    // Initialize project count
-    updateProjectCount();
-
-    // Animate stats on load
     const stats = document.querySelectorAll('.stat-item');
     stats.forEach((stat, index) => {
         stat.style.opacity = '0';
@@ -476,11 +407,28 @@ window.addEventListener('load', () => {
             stat.style.transform = 'translateY(0)';
         }, 300 + (index * 150));
     });
+
+    const capabilityCards = document.querySelectorAll('.capability-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    capabilityCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        card.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+        observer.observe(card);
+    });
 });
 
-// Handle window resize to update theme toggle visibility
+// Handle window resize
 window.addEventListener('resize', () => {
-    // Show/hide mobile theme toggle based on screen size
     if (window.innerWidth <= 768) {
         mobileThemeToggle.style.display = 'flex';
     } else {
@@ -488,7 +436,6 @@ window.addEventListener('resize', () => {
     }
 });
 
-// Initialize mobile theme toggle visibility on load
 if (window.innerWidth <= 768) {
     mobileThemeToggle.style.display = 'flex';
 } else {
